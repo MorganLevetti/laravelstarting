@@ -16,3 +16,25 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('login', '@login'); 
+Route::post('register', '@register');
+Route::post('logout', '@logout');
+Route::post('refresh', '@refresh');
+Route::post('token', '@token');
+
+// BROWSE
+Route::get('/{datatype}', '@browse');
+
+// READ
+Route::get('/{datatype}/{id}', '@read');
+
+// EDIT
+Route::put('/{datatype}/{id}', '@edit');
+
+// ADD
+Route::post('/{datatype}', '@add');
+
+// DELETE
+Route::delete('/{datatype}/{id}', '@delete');
+
