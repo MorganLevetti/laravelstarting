@@ -2,17 +2,29 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('login', 'ApiController@login'); 
+Route::post('register', 'ApiController@register');
+Route::post('logout', 'ApiController@logout');
+Route::post('refresh', 'ApiController@refresh');
+Route::post('token', 'ApiController@token');
+
+// BROWSE
+Route::get('/{datatype}', 'ApiController@browse');
+
+// READ
+Route::get('/{datatype}/{id}', 'ApiController@read');
+
+// EDIT
+Route::put('/{datatype}/{id}', 'ApiController@edit');
+
+// ADD
+Route::post('/{datatype}', 'ApiController@add');
+
+// DELETE
+Route::delete('/{datatype}/{id}', 'ApiController@delete');
+
