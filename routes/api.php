@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,6 +22,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('login', 'App\Http\Controllers\API\Auth\LoginController@login');
 Route::post('register', 'App\Http\Controllers\API\Auth\RegisterController@register');
+Route::post('sendPasswordResetLink', 'App\Http\Controllers\API\Auth\ForgotPasswordController@forgetPassword');
+
+Route::get('/reset_password_email/{token}', 'App\Http\Controllers\API\Auth\ResetPasswordController@showResetForm')->name('password.reset.form');
+Route::post('/reset_password_email', 'App\Http\Controllers\API\Auth\ResetPasswordController@resetPassword')->name('password.reset');
+
+
 // Route::post('/me', [LoginController::class, 'me'])->middleware('auth:sanctum'); 
 // Route::post('register', 'ApiController@register');
 // Route::post('logout', 'ApiController@logout');
