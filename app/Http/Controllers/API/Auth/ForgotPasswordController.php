@@ -56,11 +56,11 @@ class ForgotPasswordController extends Controller
                 // Envoyez l'e-mail
                 $path = 'http://localhost:3000/resetPassword?token=' . $token;
                 Mail::to($email)->send(new SendMailreset($token, $email, $path));
+                dd($token);
                 return response()->json([
                     'message' => 'Un lien de réinitialisation de mot de passe a été envoyé à votre adresse email.'
                 ], 200);
             }
-            
         }
     }
 }
