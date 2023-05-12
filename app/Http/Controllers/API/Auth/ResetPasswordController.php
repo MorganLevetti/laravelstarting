@@ -12,10 +12,11 @@ class ResetPasswordController extends Controller
 {
     public function showResetForm($token)
     {
-        // dd($token);
+        // Il faut check ça, je suis pas sur de ça.
         return redirect('http://localhost:3000/resetPassword?token='.$token);
     }
 
+    //  Ici le soucis c'est que le password ne change pas et en retour API j'ai une erreur avec le TOKEN
     public function resetPassword(Request $request)
     {
         $request->validate([

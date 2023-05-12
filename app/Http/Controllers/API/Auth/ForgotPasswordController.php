@@ -39,24 +39,26 @@ class ForgotPasswordController extends Controller
                 'message' => 'Adresse e-mail non enregistrer',
                 'info' => 'not_subscribed'
             ]);
-            // error_log($return);
             return $return;
         }else {
+            // la on check si l'email est enregistré ou pas 
             if (DB::table('password_reset_tokens')->where('email', $request->email)->exists()) {
                 return response()->json(['message' => 'L\'email est déjà enregistré.'], 400);
             }else{
                 // Créer le Token
                 $token = Str::random(64);
-                // Rentre les champs en bdd sur la table 'password reset tokens'
+                // Rentre les champs en bdd sur la table 'password_reset_tokens'
                 DB::table('password_reset_tokens')->insert([
                     'email' => $request->email, 
                     'token' => $token, 
                     'created_at' => Carbon::now()
                 ]);
                 // Envoyez l'e-mail
+                //  ICI le path est à revoir également car je suis pas sur.
                 $path = 'http://localhost:3000/resetPassword?token=' . $token;
+                //  Cette partie fonctionne, l'envoi de la response en Json pour API , il faut etre register avant de vouloir
+                // envoyer un email de reset password, et ouiii.
                 Mail::to($email)->send(new SendMailreset($token, $email, $path));
-                dd($token);
                 return response()->json([
                     'message' => 'Un lien de réinitialisation de mot de passe a été envoyé à votre adresse email.'
                 ], 200);
