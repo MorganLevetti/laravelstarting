@@ -5,9 +5,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-class LoginController extends Controller
+use Laravel\Sanctum\PersonalAccessToken;
+
+class AuthController extends Controller
 {
-    
     public function login(Request $request)
     {
     if (!Auth::attempt($request->only('email', 'password'))) {
@@ -15,23 +16,22 @@ class LoginController extends Controller
         'message' => 'Invalid login details'
                 ], 401);
            }
-    
     $user = User::where('email', $request['email'])->firstOrFail();
-    
     $token = $user->createToken('auth_token')->plainTextToken;
-    
+
     return response()->json([
                'access_token' => $token,
                'token_type' => 'Bearer',
                'expiration' => config('sanctum.expiration', 60*24*7)
     ]);
     }
-
-    public function logout()
+    public function logout(Request $request)
     {
-        auth()->logout();
-
-        return response()->json(['message' => 'Successfully logged out']);
+        $token = $request['token'];
+        if ($token){
+                PersonalAccessToken::findToken ($token)->delete ();
+                return response ()->json (['message' => 'Deconnection avec succéss']);
+        }
     }
 
 }
