@@ -46,6 +46,7 @@ class RegisterController extends Controller
         $user = User::where('email', $userVerif->email)->firstOrFail();
         $user->email_verified_at = Carbon::now();
         $user->save();
+        $accessToken->delete ();
         return redirect (config ('app.constants.URL_FRONT')."/login");
     }
 }
