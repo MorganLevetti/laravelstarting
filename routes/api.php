@@ -15,13 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
 
 Route::post('login', 'App\Http\Controllers\API\Auth\AuthController@login');
 Route::post('logout', 'App\Http\Controllers\API\Auth\AuthController@logout');
 Route::post('register', 'App\Http\Controllers\API\Auth\RegisterController@register');
 Route::get ('verify', 'App\Http\Controllers\API\Auth\RegisterController@verifyEmail');
+Route::post ('user', 'App\Http\Controllers\API\UserController@profile');
 
 
