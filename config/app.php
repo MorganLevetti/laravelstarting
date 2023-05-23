@@ -185,4 +185,9 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'constants' => [
+        'URL_FRONT' => env('URL_FRONT', 'http://127.0.0.1:3000'),
+        'URL_BACK' => env('URL_BACK', 'http://127.0.0.1:8000'),
+    ],
+
 ];

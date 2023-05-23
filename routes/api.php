@@ -16,14 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::post('login', 'App\Http\Controllers\API\Auth\LoginController@login');
+Route::post('login', 'App\Http\Controllers\API\Auth\AuthController@login');
+Route::post('logout', 'App\Http\Controllers\API\Auth\AuthController@logout');
 Route::post('register', 'App\Http\Controllers\API\Auth\RegisterController@register');
-// Envoi du lien Reset, LA C'EST LA PARTI ENVOI DE L'EMAIL
-Route::post('sendPasswordResetLink', 'App\Http\Controllers\API\Auth\ForgotPasswordController@forgetPassword');
-// Reset du password , LA C'EST POUR LA PARTIE RESET PASSWORD
-Route::get('/reset_password_email/{token}', 'App\Http\Controllers\API\Auth\ResetPasswordController@showResetForm')->name('password.reset.form');
-Route::post('/reset_password_email', 'App\Http\Controllers\API\Auth\ResetPasswordController@resetPassword')->name('password.reset');
+Route::get ('verify', 'App\Http\Controllers\API\Auth\RegisterController@verifyEmail');
+Route::post ('user', 'App\Http\Controllers\API\UserController@profile');
+Route::post ('sendPasswordResetLink', 'App\Http\Controllers\API\Auth\ForgotPassword@sendLink');
+Route::post ('resetPassword', 'App\Http\Controllers\API\Auth\ForgotPassword@resetPassword');
+
+
